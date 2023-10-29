@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -6,6 +8,11 @@ plugins {
 android {
     namespace = "id.android.fundamental"
     compileSdk = 33
+
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
 
     defaultConfig {
         applicationId = "id.android.fundamental"
