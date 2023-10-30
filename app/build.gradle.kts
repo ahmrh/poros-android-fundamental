@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "id.android.fundamental"
-    compileSdk = 33
+    compileSdk = 34
 
     buildFeatures {
         viewBinding = true
@@ -17,7 +17,7 @@ android {
     defaultConfig {
         applicationId = "id.android.fundamental"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
