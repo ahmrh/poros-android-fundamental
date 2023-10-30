@@ -320,9 +320,9 @@
                 <TextView
                     style="@style/weather_label"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="start"
-                    android:text="Degree" />
+                    android:text="Real feel" />
 
                 <TextView
                     style="@style/weather_value"
@@ -344,7 +344,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:text="Real Feel" />
+                    android:text="Pressure" />
 
                 <TextView
                     style="@style/weather_value"
