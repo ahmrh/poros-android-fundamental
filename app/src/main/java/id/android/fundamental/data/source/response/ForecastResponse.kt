@@ -2,25 +2,13 @@ package id.android.fundamental.data.source.response
 
 import com.google.gson.annotations.SerializedName
 
-data class WeatherResponse(
+data class ForecastResponse(
 
 	@field:SerializedName("timelines")
 	val timelines: Timelines? = null,
 
 	@field:SerializedName("location")
 	val location: Location? = null
-)
-
-data class Timelines(
-
-	@field:SerializedName("daily")
-	val daily: List<DailyItem?>? = null,
-
-	@field:SerializedName("hourly")
-	val hourly: List<HourlyItem?>? = null,
-
-	@field:SerializedName("minutely")
-	val minutely: List<MinutelyItem?>? = null
 )
 
 data class Location(
@@ -38,6 +26,24 @@ data class Location(
 	val lat: Any? = null
 )
 
+data class DailyItem(
+
+	@field:SerializedName("values")
+	val values: Values? = null,
+
+	@field:SerializedName("time")
+	val time: String? = null
+)
+
+data class HourlyItem(
+
+	@field:SerializedName("values")
+	val values: Values? = null,
+
+	@field:SerializedName("time")
+	val time: String? = null
+)
+
 data class Values(
 
 	@field:SerializedName("moonriseTime")
@@ -53,7 +59,7 @@ data class Values(
 	val cloudCoverAvg: Any? = null,
 
 	@field:SerializedName("cloudCoverMin")
-	val cloudCoverMin: Int? = null,
+	val cloudCoverMin: Any? = null,
 
 	@field:SerializedName("uvHealthConcernAvg")
 	val uvHealthConcernAvg: Int? = null,
@@ -137,7 +143,7 @@ data class Values(
 	val humidityAvg: Any? = null,
 
 	@field:SerializedName("humidityMin")
-	val humidityMin: Int? = null,
+	val humidityMin: Any? = null,
 
 	@field:SerializedName("snowAccumulationSum")
 	val snowAccumulationSum: Int? = null,
@@ -185,7 +191,7 @@ data class Values(
 	val windSpeedAvg: Any? = null,
 
 	@field:SerializedName("rainAccumulationLweAvg")
-	val rainAccumulationLweAvg: Int? = null,
+	val rainAccumulationLweAvg: Any? = null,
 
 	@field:SerializedName("rainAccumulationLweMin")
 	val rainAccumulationLweMin: Int? = null,
@@ -203,10 +209,10 @@ data class Values(
 	val sunsetTime: String? = null,
 
 	@field:SerializedName("rainIntensityAvg")
-	val rainIntensityAvg: Int? = null,
+	val rainIntensityAvg: Any? = null,
 
 	@field:SerializedName("moonsetTime")
-	val moonsetTime: Any? = null,
+	val moonsetTime: String? = null,
 
 	@field:SerializedName("pressureSurfaceLevelAvg")
 	val pressureSurfaceLevelAvg: Any? = null,
@@ -230,7 +236,7 @@ data class Values(
 	val sleetAccumulationLweMin: Int? = null,
 
 	@field:SerializedName("rainAccumulationAvg")
-	val rainAccumulationAvg: Int? = null,
+	val rainAccumulationAvg: Any? = null,
 
 	@field:SerializedName("rainAccumulationMin")
 	val rainAccumulationMin: Int? = null,
@@ -293,7 +299,7 @@ data class Values(
 	val snowAccumulationLweSum: Int? = null,
 
 	@field:SerializedName("visibilityAvg")
-	val visibilityAvg: Any? = null,
+	val visibilityAvg: Int? = null,
 
 	@field:SerializedName("precipitationProbabilityAvg")
 	val precipitationProbabilityAvg: Any? = null,
@@ -302,7 +308,7 @@ data class Values(
 	val precipitationProbabilityMin: Int? = null,
 
 	@field:SerializedName("visibilityMin")
-	val visibilityMin: Any? = null,
+	val visibilityMin: Int? = null,
 
 	@field:SerializedName("sleetAccumulationAvg")
 	val sleetAccumulationAvg: Int? = null,
@@ -324,6 +330,18 @@ data class Values(
 
 	@field:SerializedName("iceAccumulationLweMin")
 	val iceAccumulationLweMin: Int? = null,
+
+	@field:SerializedName("snowDepthMin")
+	val snowDepthMin: Int? = null,
+
+	@field:SerializedName("snowDepthSum")
+	val snowDepthSum: Int? = null,
+
+	@field:SerializedName("snowDepthMax")
+	val snowDepthMax: Int? = null,
+
+	@field:SerializedName("snowDepthAvg")
+	val snowDepthAvg: Int? = null,
 
 	@field:SerializedName("precipitationProbability")
 	val precipitationProbability: Int? = null,
@@ -383,10 +401,10 @@ data class Values(
 	val humidity: Int? = null,
 
 	@field:SerializedName("windDirection")
-	val windDirection: Any? = null,
+	val windDirection: Int? = null,
 
 	@field:SerializedName("windSpeed")
-	val windSpeed: Any? = null,
+	val windSpeed: Int? = null,
 
 	@field:SerializedName("rainAccumulation")
 	val rainAccumulation: Int? = null,
@@ -410,25 +428,10 @@ data class Values(
 	val uvHealthConcern: Int? = null,
 
 	@field:SerializedName("uvIndex")
-	val uvIndex: Int? = null
-)
+	val uvIndex: Int? = null,
 
-data class DailyItem(
-
-	@field:SerializedName("values")
-	val values: Values? = null,
-
-	@field:SerializedName("time")
-	val time: String? = null
-)
-
-data class HourlyItem(
-
-	@field:SerializedName("values")
-	val values: Values? = null,
-
-	@field:SerializedName("time")
-	val time: String? = null
+	@field:SerializedName("snowDepth")
+	val snowDepth: Int? = null
 )
 
 data class MinutelyItem(
@@ -438,4 +441,16 @@ data class MinutelyItem(
 
 	@field:SerializedName("time")
 	val time: String? = null
+)
+
+data class Timelines(
+
+	@field:SerializedName("daily")
+	val daily: List<DailyItem?>? = null,
+
+	@field:SerializedName("hourly")
+	val hourly: List<HourlyItem?>? = null,
+
+	@field:SerializedName("minutely")
+	val minutely: List<MinutelyItem?>? = null
 )

@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
+
         setContentView(binding.root)
 
 
