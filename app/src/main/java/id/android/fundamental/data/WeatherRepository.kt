@@ -5,34 +5,41 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import id.android.fundamental.data.model.Weather
 import id.android.fundamental.data.source.ApiConfig
+import id.android.fundamental.data.source.response.DailyItem
 import id.android.fundamental.data.source.response.ForecastResponse
-import kotlinx.datetime.toLocalDate
-import retrofit2.*
-import java.time.format.TextStyle
-import java.util.Locale
+import id.android.fundamental.utils.DateUtils
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// Todo: Create Weather Repository Function
 class WeatherRepository {
-    companion object{
+    companion object {
         const val TAG = "WeatherRepository"
     }
 
     fun fetchWeather(): LiveData<Weather> {
         val result = MutableLiveData<Weather>()
 
-        val client = ApiConfig.provideApiService().fetchWeatherForecast(location = "jakarta")
-        client.enqueue(object: Callback<ForecastResponse>{
+        val client = ApiConfig.provideApiService()
+            .fetchWeatherForecast(
+                location = "jakarta"
+            )
+        client.enqueue(object :
+            Callback<ForecastResponse> {
             override fun onResponse(
                 call: Call<ForecastResponse>,
                 response: Response<ForecastResponse>
             ) {
-                if(response.isSuccessful){
+                if (response.isSuccessful) {
                     result.value =
                         response.body()?.let {
-                            mapFromApiResponse(it)
+                            mapWeatherFromApiResponse(it)
                         }
-                } else{
-                    Log.e(TAG, "onFailureResponse: ${response.message()}")
+                } else {
+                    Log.e(
+                        TAG,
+                        "onFailureResponse: ${response.message()}"
+                    )
                 }
             }
 
@@ -40,7 +47,10 @@ class WeatherRepository {
                 call: Call<ForecastResponse>,
                 t: Throwable
             ) {
-                Log.e(TAG, "onFailureThrowable: ${t.message}")
+                Log.e(
+                    TAG,
+                    "onFailureThrowable: ${t.message}"
+                )
             }
 
         })
@@ -49,34 +59,48 @@ class WeatherRepository {
     }
 
 
-    fun mapFromApiResponse(response: ForecastResponse): Weather{
-        val todayForecast = response.timelines?.daily?.get(0)!!
-        val forecast = response.timelines.daily
+    private fun mapWeatherFromApiResponse(
+        response: ForecastResponse
+    ): Weather {
+        val nextForecasts = response.timelines!!.daily!!.toMutableList()
+        val todayForecast = nextForecasts.removeFirst()!!
 
-        val todayTime = todayForecast.time
-        val todayWeather = todayForecast.values!!
-
-        val date = todayTime?.toLocalDate()
-//        val day = date?.dayOfWeek?.getDisplayName(TextStyle.FULL, Locale.ENGLISH)!!
 
         val forecasts: MutableList<Weather> = mutableListOf()
 
-        forecast.forEach{
-            forecasts.add(Weather())
+        nextForecasts.forEach { forecast ->
+            forecasts.add(
+                getWeatherFromForecast(
+                    forecast!!
+                )
+            )
         }
 
-        return Weather(
-//            day = day
-            temperature = todayWeather.temperature as Double,
-            sunriseTime = todayWeather.sunriseTime,
-            sunsetTime = todayWeather.sunsetTime,
-            windSpeed = todayWeather.windSpeed as Double,
-            windDirection = todayWeather.windDirection as Int,
-            pressure = todayWeather.pressureSurfaceLevel as Double,
-            humidity = todayWeather.humidity as Double,
-            visibility = todayWeather.visibility,
-            uvi = todayWeather.uvIndex
+        return getWeatherFromForecast(
+            todayForecast
         )
     }
+
+    private fun getWeatherFromForecast(
+        forecast: DailyItem
+    ): Weather {
+        val forecastValues = forecast.values!!
+        val forecastTime = forecast.time!!
+
+        return Weather(
+            day = DateUtils.getDayFromDateString(forecastTime),
+            temperature = forecastValues?.temperatureAvg as Double,
+            sunriseTime = forecastValues.sunriseTime,
+            sunsetTime = forecastValues.sunsetTime,
+            windSpeed = forecastValues.windSpeedAvg as Double,
+            windDirection = forecastValues.windDirectionAvg as Int,
+            pressure = forecastValues.pressureSurfaceLevelAvg as Double,
+            humidity = forecastValues.humidityAvg as Double,
+            visibility = forecastValues.visibilityAvg,
+            uvi = forecastValues.uvIndex,
+            cloudCover = forecastValues.cloudCoverAvg as Double
+        )
+    }
+
 
 }

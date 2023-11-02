@@ -18,7 +18,7 @@ object ApiConfig {
 
     fun provideApiService(): ApiService {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.tomorrow.io/v4/")
+            .baseUrl("https://api.tomorrow.io/v4/weather/")
             .addConverterFactory(
                 GsonConverterFactory.create())
             .client(provideOkHttpClient())

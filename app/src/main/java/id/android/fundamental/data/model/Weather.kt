@@ -19,4 +19,6 @@ data class Weather(
     val visibility: Int? = 0,
     val uvi: Int? = 0,
 
+    val cloudCover: Double? = 0.0
+
     )
