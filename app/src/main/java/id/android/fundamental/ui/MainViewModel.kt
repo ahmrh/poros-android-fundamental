@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class MainViewModel: ViewModel() {
 
-    // TODO:
+    // TODO: Buat obser
 
     companion object {
         const val TAG = "MainViewModel"
