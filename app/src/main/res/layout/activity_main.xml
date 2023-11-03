@@ -23,7 +23,7 @@
         android:id="@+id/layout_weather"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_curr_temp"
@@ -471,7 +471,7 @@
 
     <ProgressBar
         android:id="@+id/layout_loading"
-        android:visibility="gone"
+        android:visibility="visible"
         android:indeterminate="true"
         android:indeterminateTintMode="src_atop"
         android:indeterminateTint="@color/white"
