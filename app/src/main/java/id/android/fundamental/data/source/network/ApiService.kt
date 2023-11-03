@@ -1,4 +1,4 @@
-package id.android.fundamental.data.source
+package id.android.fundamental.data.source.network
 
 import id.android.fundamental.data.source.response.ForecastResponse
 import retrofit2.Call

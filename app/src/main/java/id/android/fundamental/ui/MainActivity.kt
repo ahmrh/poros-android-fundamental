@@ -1,15 +1,17 @@
 package id.android.fundamental.ui
 
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import id.android.fundamental.R
 import id.android.fundamental.data.model.Weather
+import id.android.fundamental.data.source.network.ApiResponse
 import id.android.fundamental.databinding.ActivityMainBinding
+import id.android.fundamental.utils.DateUtils
 import id.android.fundamental.utils.WeatherUtils
 
 class MainActivity : AppCompatActivity() {
@@ -37,40 +39,49 @@ class MainActivity : AppCompatActivity() {
     fun initUi(){
         forecastTextViews = listOf(
             binding.tvForecastDay1, binding.tvForecastDay2, binding.tvForecastDay3,
-            binding.tvForecastDay4, binding.tvForecastDay5, binding.tvForecastDay6
+            binding.tvForecastDay4, binding.tvForecastDay5
         )
 
         forecastImages = listOf(
             binding.imgForecast1, binding.imgForecast2, binding.imgForecast3,
-            binding.imgForecast4, binding.imgForecast5, binding.imgForecast6
+            binding.imgForecast4, binding.imgForecast5
         )
 
         forecastTemperatures = listOf(
             binding.tvForecastTemp1, binding.tvForecastTemp2, binding.tvForecastTemp3,
-            binding.tvForecastTemp4, binding.tvForecastTemp5, binding.tvForecastTemp6
+            binding.tvForecastTemp4, binding.tvForecastTemp5
         )
 
 
-        viewModel.weatherLiveData.observe(this){weather ->
-            if(weather != null) bindWeatherUI(weather)
+        viewModel.weatherLiveData.observe(this){
+            when(it){
+                is ApiResponse.Success -> {
+                    showLoading(false)
+                    Log.d("MainActivity", it.data.toString())
+                    if(it.data != null) bindWeatherUI(it.data)
+                }
+                is ApiResponse.Empty -> showLoading(true)
+                else -> showLoading(true)
+            }
+
         }
-        viewModel.isLoading.observe(this){isLoading ->
-            showLoading(isLoading)
-        }
-        viewModel.getWeather()
     }
 
     private fun bindWeatherUI(weather: Weather){
-        for(i in 0 until 6){
-            val weather = weather.forecasts?.get(i)!!
+        binding.tvCurrTemp.text = "${weather.temperature?.toInt()}°"
+        binding.tvCurrWeather.text = "${WeatherUtils.classifyWeather(weather)}"
 
-            forecastTextViews[i].text = weather.day
-            forecastImages[i].setImageResource(getWeatherImageId(weather))
-            forecastTemperatures[i].text = "${weather.temperature}°"
+
+        for(i in 0 until 5){
+            val forecast = weather.forecasts?.get(i)!!
+
+            forecastTextViews[i].text = forecast.day
+            forecastImages[i].setImageResource(getWeatherImageId(forecast))
+            forecastTemperatures[i].text = "${forecast.temperature}°"
         }
 
-        binding.tvSunrise.text = weather.sunriseTime
-        binding.tvSunset.text = weather.sunsetTime
+        binding.tvSunrise.text = DateUtils.getTimeFromDateString(weather.sunriseTime!!)
+        binding.tvSunset.text = DateUtils.getTimeFromDateString(weather.sunsetTime!!)
         binding.tvWindSpeed.text = "${weather.windSpeed} m/s"
         binding.tvWindDirection.text = "${weather.windDirection}°"
 
@@ -78,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         binding.tvPressure.text = "${weather.pressure} hPa"
         binding.tvHumidity.text = "${weather.humidity}%"
         binding.tvVisibility.text = "${weather.visibility} km"
-        binding.tvUvi.text = "${weather.uvi}"
+        binding.tvDew.text = "${weather.dew}"
 
     }
 

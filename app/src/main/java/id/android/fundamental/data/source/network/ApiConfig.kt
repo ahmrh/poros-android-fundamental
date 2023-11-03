@@ -1,4 +1,4 @@
-package id.android.fundamental.data.source
+package id.android.fundamental.data.source.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

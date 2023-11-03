@@ -7,30 +7,29 @@
 
     tools:context=".ui.MainActivity">
 
+    <ImageView
+        android:id="@+id/img_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:foreground="#33000000"
+        android:src="@drawable/raw_image_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_weather"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/img_background"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:foreground="#33000000"
-            android:src="@drawable/raw_image_background"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            />
-
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/tv_curr_temp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="100°"
+            android:text="@string/placeholder_temperature"
             android:textSize="150sp"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -41,29 +40,33 @@
 
 
         <TextView
+            android:id="@+id/tv_curr_weather"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="188dp"
-            android:text="cloudy"
+            android:text="@string/placeholder_weather"
             android:textColor="@color/white"
             android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_curr_temp" />
 
+
         <LinearLayout
             android:id="@+id/container_weather"
             android:layout_width="match_parent"
-            android:layout_marginHorizontal="16dp"
             android:layout_height="119dp"
-            android:layout_marginTop="80dp"
-            android:gravity="center"
+            android:layout_marginHorizontal="12dp"
             android:background="@drawable/bg_container"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_curr_temp">
+            app:layout_constraintTop_toBottomOf="@id/tv_curr_temp"
+            app:layout_constraintVertical_bias="0.385">
 
             <LinearLayout
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -73,8 +76,8 @@
                     android:id="@+id/tv_forecast_day_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="Thu" />
+                    android:text="@string/placeholder_day"
+                    android:textColor="@color/white" />
 
                 <ImageView
                     android:id="@+id/img_forecast_1"
@@ -87,13 +90,14 @@
                     android:id="@+id/tv_forecast_temp_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="30°" />
+                    android:text="@string/placeholder_temperature"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
             <LinearLayout
 
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -103,8 +107,8 @@
                     android:id="@+id/tv_forecast_day_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="Thu" />
+                    android:text="@string/placeholder_day"
+                    android:textColor="@color/white" />
 
                 <ImageView
                     android:id="@+id/img_forecast_2"
@@ -117,13 +121,14 @@
                     android:id="@+id/tv_forecast_temp_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="30°" />
+                    android:text="@string/placeholder_temperature"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
             <LinearLayout
 
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -133,8 +138,8 @@
                     android:id="@+id/tv_forecast_day_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="Thu" />
+                    android:text="@string/placeholder_day"
+                    android:textColor="@color/white" />
 
                 <ImageView
                     android:id="@+id/img_forecast_3"
@@ -147,13 +152,14 @@
                     android:id="@+id/tv_forecast_temp_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="30°" />
+                    android:text="@string/placeholder_temperature"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
             <LinearLayout
 
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -163,8 +169,8 @@
                     android:id="@+id/tv_forecast_day_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="Thu" />
+                    android:text="@string/placeholder_day"
+                    android:textColor="@color/white" />
 
                 <ImageView
                     android:id="@+id/img_forecast_4"
@@ -177,13 +183,14 @@
                     android:id="@+id/tv_forecast_temp_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="30°" />
+                    android:text="@string/placeholder_temperature"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
             <LinearLayout
 
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -193,8 +200,8 @@
                     android:id="@+id/tv_forecast_day_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="Thu" />
+                    android:text="@string/placeholder_day"
+                    android:textColor="@color/white" />
 
                 <ImageView
                     android:id="@+id/img_forecast_5"
@@ -207,62 +214,33 @@
                     android:id="@+id/tv_forecast_temp_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="30°" />
+                    android:text="@string/placeholder_temperature"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
-            <LinearLayout
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_forecast_day_6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="Thu" />
-
-                <ImageView
-                    android:id="@+id/img_forecast_6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:src="@drawable/ic_weather_sunny" />
-
-                <TextView
-                    android:id="@+id/tv_forecast_temp_6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:text="30°" />
-
-            </LinearLayout>
         </LinearLayout>
-
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginHorizontal="8dp"
             android:columnCount="2"
+
             android:rowCount="2"
 
-            android:useDefaultMargins="true"
 
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginTop="8dp"
+            android:useDefaultMargins="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/container_weather">
 
             <LinearLayout
 
-                android:layout_gravity="fill"
-
                 android:layout_rowWeight="1"
+
+                android:layout_gravity="fill"
 
                 android:background="@drawable/bg_container"
                 android:gravity="center"
@@ -285,7 +263,7 @@
                         style="@style/weather_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="05:49"
+                        android:text="@string/placeholder_time"
                         android:textColor="@color/white" />
                 </LinearLayout>
 
@@ -306,15 +284,15 @@
                         style="@style/weather_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="15:49"
+                        android:text="@string/placeholder_time"
                         android:textColor="@color/white" />
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_gravity="fill"
                 android:layout_rowSpan="2"
                 android:layout_columnWeight="1"
+                android:layout_gravity="fill"
 
                 android:background="@drawable/bg_container"
                 android:orientation="vertical">
@@ -338,7 +316,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:text="30°"
+                        android:text="@string/placeholder_temperature"
                         android:textColor="@color/white" />
                 </FrameLayout>
 
@@ -361,7 +339,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:text="1000 hPa"
+                        android:text="@string/placeholder_pressure"
                         android:textColor="@color/white" />
                 </FrameLayout>
 
@@ -384,7 +362,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:text="45%"
+                        android:text="@string/placeholder_humidity"
                         android:textColor="@color/white" />
                 </FrameLayout>
 
@@ -407,7 +385,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:text="10.0 km"
+                        android:text="@string/placeholder_visibility"
                         android:textColor="@color/white" />
                 </FrameLayout>
 
@@ -422,23 +400,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="start"
-                        android:text="UVI" />
+                        android:text="Dew Point" />
 
                     <TextView
-                        android:id="@+id/tv_uvi"
+                        android:id="@+id/tv_dew"
                         style="@style/weather_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:text="8.42"
+                        android:text="@string/placeholder_dew"
                         android:textColor="@color/white" />
                 </FrameLayout>
             </LinearLayout>
 
             <LinearLayout
 
-                android:layout_gravity="fill"
                 android:layout_rowWeight="1"
+                android:layout_gravity="fill"
 
                 android:background="@drawable/bg_container"
                 android:gravity="center"
@@ -461,7 +439,7 @@
                         style="@style/weather_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="3.99 m/s"
+                        android:text="@string/placeholder_wind_speed"
                         android:textColor="@color/white" />
                 </LinearLayout>
 
@@ -482,7 +460,7 @@
                         style="@style/weather_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="30°"
+                        android:text="@string/placeholder_wind_direction"
                         android:textColor="@color/white" />
                 </LinearLayout>
 
@@ -493,6 +471,10 @@
 
     <ProgressBar
         android:id="@+id/layout_loading"
+        android:visibility="gone"
+        android:indeterminate="true"
+        android:indeterminateTintMode="src_atop"
+        android:indeterminateTint="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

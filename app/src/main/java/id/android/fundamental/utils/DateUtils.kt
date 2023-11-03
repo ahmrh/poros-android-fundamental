@@ -1,9 +1,7 @@
 package id.android.fundamental.utils
 
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 import java.util.Locale
 
 object DateUtils{
@@ -28,5 +26,19 @@ object DateUtils{
 
         return day
 
+    }
+
+    fun getTimeFromDateString(dateString: String): String{
+
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+        val date = dateFormat.parse(dateString)
+
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+
+        val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val time = timeFormat.format(date)
+
+        return time
     }
 }

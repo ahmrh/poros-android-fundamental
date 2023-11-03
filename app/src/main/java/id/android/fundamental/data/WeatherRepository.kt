@@ -4,7 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import id.android.fundamental.data.model.Weather
-import id.android.fundamental.data.source.ApiConfig
+import id.android.fundamental.data.source.network.ApiConfig
+import id.android.fundamental.data.source.network.ApiResponse
 import id.android.fundamental.data.source.response.DailyItem
 import id.android.fundamental.data.source.response.ForecastResponse
 import id.android.fundamental.utils.DateUtils
@@ -17,8 +18,8 @@ class WeatherRepository {
         const val TAG = "WeatherRepository"
     }
 
-    fun fetchWeather(): LiveData<Weather> {
-        val result = MutableLiveData<Weather>()
+    fun fetchWeather(): LiveData<ApiResponse<Weather>> {
+        val result = MutableLiveData<ApiResponse<Weather>>()
 
         val client = ApiConfig.provideApiService()
             .fetchWeatherForecast(
@@ -31,11 +32,13 @@ class WeatherRepository {
                 response: Response<ForecastResponse>
             ) {
                 if (response.isSuccessful) {
-                    result.value =
-                        response.body()?.let {
-                            mapWeatherFromApiResponse(it)
-                        }
+                    result.value = ApiResponse.Success(
+                        mapWeatherFromApiResponse(
+                            response.body()!!
+                        )
+                    )
                 } else {
+                    result.value = ApiResponse.Error(response.message())
                     Log.e(
                         TAG,
                         "onFailureResponse: ${response.message()}"
@@ -47,6 +50,7 @@ class WeatherRepository {
                 call: Call<ForecastResponse>,
                 t: Throwable
             ) {
+                result.value = ApiResponse.Error(t.message ?: "Unidentified Error")
                 Log.e(
                     TAG,
                     "onFailureThrowable: ${t.message}"
@@ -65,8 +69,9 @@ class WeatherRepository {
         val nextForecasts = response.timelines!!.daily!!.toMutableList()
         val todayForecast = nextForecasts.removeFirst()!!
 
-
         val forecasts: MutableList<Weather> = mutableListOf()
+
+        Log.d(TAG, nextForecasts.toString())
 
         nextForecasts.forEach { forecast ->
             forecasts.add(
@@ -77,27 +82,28 @@ class WeatherRepository {
         }
 
         return getWeatherFromForecast(
-            todayForecast
+            todayForecast, forecasts
         )
     }
 
     private fun getWeatherFromForecast(
-        forecast: DailyItem
+        forecast: DailyItem, nextForecasts: List<Weather> = emptyList()
     ): Weather {
         val forecastValues = forecast.values!!
         val forecastTime = forecast.time!!
 
         return Weather(
             day = DateUtils.getDayFromDateString(forecastTime),
+            forecasts = nextForecasts,
             temperature = forecastValues?.temperatureAvg as Double,
             sunriseTime = forecastValues.sunriseTime,
             sunsetTime = forecastValues.sunsetTime,
             windSpeed = forecastValues.windSpeedAvg as Double,
-            windDirection = forecastValues.windDirectionAvg as Int,
+            windDirection = forecastValues.windDirectionAvg as Double,
             pressure = forecastValues.pressureSurfaceLevelAvg as Double,
             humidity = forecastValues.humidityAvg as Double,
-            visibility = forecastValues.visibilityAvg,
-            uvi = forecastValues.uvIndex,
+            visibility = forecastValues.visibilityAvg as Double,
+            dew = forecastValues.dewPointAvg as Double,
             cloudCover = forecastValues.cloudCoverAvg as Double
         )
     }

@@ -12,12 +12,12 @@ data class Weather(
     val sunsetTime: String? = "nn:nn",
 
     val windSpeed: Double? = 0.00,
-    val windDirection: Int? = 0,
+    val windDirection: Double? = 0.00,
 
     val pressure: Double? = 0.00,
     val humidity: Double? = 0.00,
-    val visibility: Int? = 0,
-    val uvi: Int? = 0,
+    val visibility: Double? = 0.00,
+    val dew: Double? = 0.00,
 
     val cloudCover: Double? = 0.0
 
