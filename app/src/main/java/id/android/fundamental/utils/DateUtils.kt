@@ -6,7 +6,7 @@ import java.util.Locale
 
 object DateUtils{
 
-    /* Fungsi ini untuk mengubah tanggal dari string yang ada di API menjadi hari dengan format "Sunday", "Monday", etc */
+    // Mengubah tanggal dari string yang ada di API menjadi hari dengan format "Sunday", "Monday", etc
     fun getDayFromDateString(dateString: String): String {
 
         val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
@@ -30,7 +30,7 @@ object DateUtils{
 
     }
 
-     /* Fungsi ini untuk mengubah tanggal dari string yang ada di API menjadi waktu dengan format "HH:mm" */
+     // Mengubah tanggal dari string yang ada di API menjadi waktu dengan format "HH:mm"
     fun getTimeFromDateString(dateString: String): String{
 
         val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())

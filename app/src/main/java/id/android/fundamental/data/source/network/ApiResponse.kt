@@ -1,5 +1,6 @@
 package id.android.fundamental.data.source.network
 
+// Kelas ini digunakan untuk menerima respon dari API
 sealed class ApiResponse<out R> {
 
     data class Success<out T>(val data: T) : ApiResponse<T>()

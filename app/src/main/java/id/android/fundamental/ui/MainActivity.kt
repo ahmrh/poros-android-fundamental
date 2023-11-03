@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        /* TODO 1: Bind data dari Observable di ViewModel*/
+        /* TODO 5: Bind data dari Observable di ViewModel */
     }
 
    companion object{

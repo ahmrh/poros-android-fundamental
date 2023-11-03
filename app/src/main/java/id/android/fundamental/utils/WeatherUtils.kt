@@ -7,15 +7,16 @@ object WeatherUtils {
     const val CLOUDY = "Cloudy"
     const val RAINY = "Rainy"
 
+    // Klasifikasi cuaca berdasarkan cloud cover dan humidity
     fun classifyWeather(weather: Weather): String{
         val cloudCover = weather.cloudCover!!
         val humidity = weather.humidity!!
         return when{
-            cloudCover < 50 -> WeatherUtils.SUNNY
+            cloudCover < 50 -> SUNNY
             else -> {
                 when{
-                    humidity < 60 -> WeatherUtils.CLOUDY
-                    else -> WeatherUtils.RAINY
+                    humidity < 60 -> CLOUDY
+                    else -> RAINY
                 }
             }
         }

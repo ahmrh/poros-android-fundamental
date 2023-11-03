@@ -1,7 +1,9 @@
 package id.android.fundamental.data.source.network
 
+import retrofit2.*
+
 interface ApiService {
 
-    // TODO: Create Function for Fetching Data
+    // TODO 2: Buat fungsi untuk mengambil data dari tomorrow.io API menggunakan retrofit
 
 }
